@@ -18,14 +18,7 @@ $(document).ready(function() {
 //   embarrassed:
 // };
 // var storedLevelOneArray = [];
-var levelOneArray = [
-{name: "happy", link: "http://www.dennyzen.com/wp-content/uploads/2014/04/child-happy-face.jpg"},
-{name: "sad", link: "https://s-media-cache-ak0.pinimg.com/736x/44/4c/2b/444c2b1160898a5ecaa3b925cbb4d3df.jpg"},
-{name: "nervous", link: "http://previews.123rf.com/images/zurijeta/zurijeta0908/zurijeta090801040/5444732-Stress-expression-on-little-blond-kid-s-face-Stock-Photo-child-nervous-anxious.jpg"},
-{name: "confused", link: "http://www.livescience.com/images/i/000/057/745/original/confused-kid.jpg"},
-{name: "surprised", link: "http://az616578.vo.msecnd.net/files/2016/03/09/635930996799478576-738276929_ARTICLE%201.jpg"},
-
-];
+var levelOneArray = [];
 
 var levelOneNewArray = [];
 var correctSelection;
@@ -38,7 +31,7 @@ var levelTwoArray = [
 {name: "surprised", link: "https://s3.amazonaws.com/lifesite/shocked_face_child.jpg"},
 ]
 
-
+var counter;
 
 //var levelOneObj = [];
 // var numberOfButtons = 4;
@@ -112,17 +105,64 @@ var levelTwoArray = [
 //   levelOneNewArray.push(levelOneArray[i]);
 // }
 
-$('#resetbutton').click(function() {
-  reset();
-  $('#main').empty();
-})
+
 
 // Call the reset function when the page loads.
 // levelOneArray is mixed up and the top 4 objects are pushed to levelOneNewArray.
 // The game is ready to play.
+initialize();
 reset();
 
-$('#start').click(function() {
+function initialize () {
+  levelOneArray = [
+  {name: "shy", link: "https://atrts.files.wordpress.com/2010/06/shy.jpeg"},
+  {name: "afraid", link: "http://vaxtruth.org/wordpress/wp-content/uploads/2012/05/child-200x300.jpg"},
+  {name: "excited", link: "https://melissakircher.files.wordpress.com/2013/12/excited.jpeg"},
+  {name: "bored", link: "http://i.huffpost.com/gen/1867389/thumbs/h-KID-BORED-960x540.jpg"},
+  {name: "surprised", link: "https://s3.amazonaws.com/lifesite/shocked_face_child.jpg"},
+  {name: "happy", link: "http://www.dennyzen.com/wp-content/uploads/2014/04/child-happy-face.jpg"},
+  {name: "sad", link: "https://s-media-cache-ak0.pinimg.com/736x/44/4c/2b/444c2b1160898a5ecaa3b925cbb4d3df.jpg"},
+  {name: "nervous", link: "http://previews.123rf.com/images/zurijeta/zurijeta0908/zurijeta090801040/5444732-Stress-expression-on-little-blond-kid-s-face-Stock-Photo-child-nervous-anxious.jpg"},
+  {name: "confused", link: "http://www.livescience.com/images/i/000/057/745/original/confused-kid.jpg"}
+];
+  counter = 0;
+  $('#points').text('Points: '+counter);
+}
+
+// resets for next play
+function reset () {
+
+  levelOneArray.sort(function() { return 0.5 - Math.random() });
+  levelOneNewArray = [];
+  for(i = 0; i < 4; i++) {
+    levelOneNewArray.push(levelOneArray[i]);
+  }
+
+  $('#imagebox').html('');
+  $('#button1').html('');
+  $('#button2').html('');
+  $('#button3').html('');
+  $('#button4').html('');
+};
+
+$('#resetbutton').click(function() {
+  // $('#imagebox').html('');
+  // $('#button1').html('');
+  // $('#button2').html('');
+  // $('#button3').html('');
+  // $('#button4').html('');
+  initialize();
+  reset();
+
+});
+
+
+function play() {
+  // if(levelOneArray.length < 5) {
+  //   console.log('level one complete');
+  //   $('#levelOneComplete').modal();
+  // };
+
   // The first element is selected. The image appears and the name is stored in a variable "correctSelection"
   $('#imagebox').html("<img class='img-responsive' src="+levelOneNewArray[0].link+">");
     correctSelection = levelOneNewArray[0].name;
@@ -137,28 +177,56 @@ $('#start').click(function() {
   $('#button3').html("<button type='button'>"+levelOneNewArray[2].name+"</button>");
   $('#button4').html("<button type='button'>"+levelOneNewArray[3].name+"</button>");
 
-  console.log(levelOneNewArray);
+
+
+};
+
+$('#start').click(function() {
+  play();
 });
 
+
 // Tells us if the correct button is pushed
-$('button, #button1, #button2, #button3, #button4').click(function(){
+$('#button1, #button2, #button3, #button4').click(function(){
   if($(this).text() === correctSelection) {
     console.log('correct!');
-    // pop-up "correct" modal that has a button that runs the reset(); function AND add points
+    //e.preventDefault();
+    $('#correctModal').modal();
+    // add points here???
   } else {
-      // pop up "incorrect" modal
-        reset(); // reset button --> might just want to put this in the modal instead
+      // pop up "keepTryingModal" modal
+      console.log('incorrect');
+      $('#keepTryingModal').modal();
+        // reset(); // reset button --> might just want to put this in the modal instead
   }
 });
 
-// resets for next play
-function reset () {
-levelOneArray.sort(function() { return 0.5 - Math.random() });
-levelOneNewArray = [];
-for(i = 0; i < 4; i++) {
-  levelOneNewArray.push(levelOneArray[i]);
-}
-};
+// The "Next" button in the "Correct" modal.
+// When pressed the modal hides, game is reset, and points are stored
+$('#correctNextButton').click(function(){
+  levelOneArray.splice(0,1);
+  counter++;
+  $('#points').text('Points: '+counter);
+
+  if(levelOneArray.length < 5) {
+    console.log('level one complete');
+    $('#levelOneComplete').modal();
+  }else {
+    reset();
+    play();
+  }
+});
+
+$('#keepTryingButton').click(function(){
+  reset();
+  play();
+})
+
+
+
+
+
+
 
 
 // loop 4 times
