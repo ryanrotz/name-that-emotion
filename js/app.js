@@ -112,32 +112,42 @@ var levelTwoArray = [
 //   levelOneNewArray.push(levelOneArray[i]);
 // }
 
+$('#resetbutton').click(function() {
+  reset();
+  $('#main').empty();
+})
+
+// Call the reset function when the page loads.
+// levelOneArray is mixed up and the top 4 objects are pushed to levelOneNewArray.
+// The game is ready to play.
 reset();
 
 $('#start').click(function() {
+  // The first element is selected. The image appears and the name is stored in a variable "correctSelection"
   $('#imagebox').html("<img class='img-responsive' src="+levelOneNewArray[0].link+">");
     correctSelection = levelOneNewArray[0].name;
-  // var cutOutObj = levelOneObj.splice(3,1);
-  // mixes up the objects in the NEW array but puts them in a new order so that the first button isn't always the correct answer
+
+  // Mixes up the objects in the NEW array but puts them in a new order
+  // so that the first button isn't always the correct answer.
   levelOneNewArray.sort(function() { return 0.5 - Math.random() });
-  // var winningName = levelOneImage.name;
+
+// Since the array is already mixed up we can plug the objects into the buttons in any order
   $('#button1').html("<button type='button'>"+levelOneNewArray[0].name+"</button>");
   $('#button2').html("<button type='button'>"+levelOneNewArray[1].name+"</button>");
   $('#button3').html("<button type='button'>"+levelOneNewArray[2].name+"</button>");
   $('#button4').html("<button type='button'>"+levelOneNewArray[3].name+"</button>");
-  // levelOneObj.push(cutOutObj);
+
   console.log(levelOneNewArray);
 });
 
-$
-
+// Tells us if the correct button is pushed
 $('button, #button1, #button2, #button3, #button4').click(function(){
   if($(this).text() === correctSelection) {
     console.log('correct!');
     // pop-up "correct" modal that has a button that runs the reset(); function AND add points
   } else {
       // pop up "incorrect" modal
-        reset(); // reset button
+        reset(); // reset button --> might just want to put this in the modal instead
   }
 });
 
@@ -148,8 +158,7 @@ levelOneNewArray = [];
 for(i = 0; i < 4; i++) {
   levelOneNewArray.push(levelOneArray[i]);
 }
-
-}
+};
 
 
 // loop 4 times
