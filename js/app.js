@@ -18,6 +18,8 @@ $(document).ready(function() {
 //   embarrassed:
 // };
 // var storedLevelOneArray = [];
+
+
 var levelOneArray = [];
 
 var levelOneNewArray = [];
