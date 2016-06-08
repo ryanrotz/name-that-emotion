@@ -6,6 +6,8 @@
   <title>Name that Emotion</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css">
+
   <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,8 +15,16 @@
 <body>
   <div class="container-fluid">
 
-  <!-- Header. This has a "start over" button or link in the top corner -->
+<!-- Page that loads when you first load the page -->
+<div class="intro">
+  <div class="row">
+    <div class="col-md-12"><h1>Name That Emotion!</h1></div>
+    <button id="startGame">Start game</button>
+  </div>
 
+</div>
+
+<div class="board">
 <!-- "Correct" Modal -->
 <div class="modal fade" id="correctModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -78,14 +88,15 @@
     <div class="col-md-1 col-sm-2 col-xs-2"" id="points">Points:</div>
       </div>
     </div>
-  </div>
+
 
 
   <!-- Game Title -->
-  <div id="gametitle"></div>
+  <div id="gametitle">
     <div class="row">
-    <div class="col-md-12"><h1>Name That Emotion</h1></div>
+    <div class="col-md-12"><h2>Name That Emotion!</h2></div>
     </div>
+  </div>
 
   <!-- Main section with image box and then the Level and Score in another box -->
   <div id="main">
@@ -99,18 +110,19 @@
     </div>
 
 
-
-
   <!-- Selectors (i.e. "happy", "sad", "mad", "nervous") -->
-  <div id="answers"></div>
+  <div id="answers">
     <div class="row">
-    <div id="button1" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg" ></div>
-    <div id="button2" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg" ></div>
-    <div id="button3" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg" ></div>
-    <div id="button4" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg" ></div>
+      <div id="button1" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg"></div>
+      <div id="button2" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg"></div>
+      <div id="button3" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg"></div>
+      <div id="button4" class="col-md-3 col-sm-6" class="btn btn-primary btn-lg"></div>
     </div>
-</div>
+  </div>
 
+</div> <!-- closing div for "main" div -->
+
+</div> <!-- endingdiv for "board" class -->
   </div> <!-- ending div for container-fluid -->
 
   <!-- footer -->
@@ -122,6 +134,8 @@
 
 
   <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </body>
