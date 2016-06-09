@@ -14,6 +14,12 @@ body {
   background-size: cover;
 }
 
+.intro {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);}
+
 h1 {
   font-size: 6em;
 }
@@ -75,6 +81,14 @@ div#button1 button, div#button2 button, div#button3 button, div#button4 button {
 
 div#imagebox img {
   margin: 0 auto;
+}
+
+.modal-title {
+  font-size: 30px;
+}
+
+.modal-body p {
+  font-size: 20px;
 }
 
 .footer {
