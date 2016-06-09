@@ -29,21 +29,25 @@ $(document).ready(function() {
 
 var levelOneArray = [];
 var levelOneNewArray = [];
+var levelTwoArray = [];
+var levelTwoNewArray = [];
 var correctSelection;
 var counter;
+var level;
 
 
 // When the page is loaded the start button should be big and in the middle
 // of the screen. The header should be hidden.
 
-$('#startGame').click(function(e) {
-  e.preventDefault();
+$('#startGame').click(function() {
+  // e.preventDefault();
   console.log('game started');
   $('.intro').hide();
   $('.board').show();
   initialize();
-  reset();
-  play();
+
+  levelOneNewArray = reset(levelOneArray, levelOneNewArray);
+  play(levelOneNewArray);
 });
 
 
@@ -69,42 +73,62 @@ function initialize () {
   $('#points').text('Points: '+counter);
 }
 
+function initializeLevelTwo () {
+  levelTwoArray = [
+  {name: "shy", link: "https://atrts.files.wordpress.com/2010/06/shy.jpeg"},
+  {name: "afraid", link: "http://vaxtruth.org/wordpress/wp-content/uploads/2012/05/child-200x300.jpg"},
+  {name: "excited", link: "https://melissakircher.files.wordpress.com/2013/12/excited.jpeg"},
+  {name: "bored", link: "http://i.huffpost.com/gen/1867389/thumbs/h-KID-BORED-960x540.jpg"},
+  {name: "surprised", link: "https://s3.amazonaws.com/lifesite/shocked_face_child.jpg"},
+  {name: "happy", link: "http://www.dennyzen.com/wp-content/uploads/2014/04/child-happy-face.jpg"},
+  {name: "sad", link: "https://s-media-cache-ak0.pinimg.com/736x/44/4c/2b/444c2b1160898a5ecaa3b925cbb4d3df.jpg"},
+  {name: "nervous", link: "http://previews.123rf.com/images/zurijeta/zurijeta0908/zurijeta090801040/5444732-Stress-expression-on-little-blond-kid-s-face-Stock-Photo-child-nervous-anxious.jpg"},
+  {name: "confused", link: "http://www.livescience.com/images/i/000/057/745/original/confused-kid.jpg"}
+];
+  // counter = 0;
+  $('#points').text('Points: '+counter);
+}
+
+
+
 // resets for next play
 // levelOneArray is mixed up and the top 4 objects are pushed to levelOneNewArray.
-function reset () {
+function reset (array, newArray) {
 
-  levelOneArray.sort(function() { return 0.5 - Math.random() });
-  levelOneNewArray = [];
+  array.sort(function() { return 0.5 - Math.random() });
+  newArray = [];
   for(i = 0; i < 4; i++) {
-    levelOneNewArray.push(levelOneArray[i]);
+    newArray.push(array[i]);
   }
+
   $('#imagebox').html('');
   $('#button1').html('');
   $('#button2').html('');
   $('#button3').html('');
   $('#button4').html('');
+  return newArray;
 };
 
 
-function play() {
+function play(newArray) {
   // if(levelOneArray.length < 5) {
   //   console.log('level one complete');
   //   $('#levelOneComplete').modal();
   // };
 
   // The first element is selected. The image appears and the name is stored in a variable "correctSelection"
-  $('#imagebox').html("<img class='img-responsive' src="+levelOneNewArray[0].link+">");
-    correctSelection = levelOneNewArray[0].name;
+  $('#imagebox').html("<img class='img-responsive' src="+newArray[0].link+">");
+    correctSelection = newArray[0].name;
 
   // Mixes up the objects in the NEW array but puts them in a new order
   // so that the first button isn't always the correct answer.
-  levelOneNewArray.sort(function() { return 0.5 - Math.random() });
+  newArray.sort(function() { return 0.5 - Math.random() });
 
 // Since the array is already mixed up we can plug the objects into the buttons in any order
-  $('#button1').html("<button type='button'>"+levelOneNewArray[0].name+"</button>");
-  $('#button2').html("<button type='button'>"+levelOneNewArray[1].name+"</button>");
-  $('#button3').html("<button type='button'>"+levelOneNewArray[2].name+"</button>");
-  $('#button4').html("<button type='button'>"+levelOneNewArray[3].name+"</button>");
+  $('#button1').html("<button type='button'>"+newArray[0].name+"</button>");
+  $('#button2').html("<button type='button'>"+newArray[1].name+"</button>");
+  $('#button3').html("<button type='button'>"+newArray[2].name+"</button>");
+  $('#button4').html("<button type='button'>"+newArray[3].name+"</button>");
 };
 
 
@@ -115,12 +139,12 @@ $('#resetbutton').click(function() {
   // $('#button3').html('');
   // $('#button4').html('');
   initialize();
-  reset();
+  reset(levelOneArray, levelOneNewArray);
 });
 
 
 $('#start').click(function() {
-  play();
+  play(levelOneNewArray);
 });
 
 
@@ -139,6 +163,7 @@ $('#button1, #button2, #button3, #button4').click(function(){
   }
 });
 
+// FOR LEVEL ONE
 // The "Next" button in the "Correct" modal.
 // When pressed the modal hides, game is reset, and points are stored
 $('#correctNextButton').click(function(){
@@ -150,16 +175,53 @@ $('#correctNextButton').click(function(){
     console.log('level one complete');
     $('#levelOneComplete').modal();
   }else {
-    reset();
-    play();
+    reset(levelOneArray, levelOneNewArray);
+    play(levelOneArray);
   }
 });
-
 // The "Next" button in the "Keep Trying" modal
 $('#keepTryingButton').click(function(){
-  reset();
-  play();
+  reset(levelOneArray, levelOneNewArray);
+  play(levelOneArray);
 })
+
+$('#startLevelTwoButton').click(function(){
+  reset(levelTwoArray, levelTwoNewArray);
+  play(levelTwoArray);
+});
+
+
+// FOR LEVEL TWO
+$('#correctNextButtonLevelTwo').click(function(){
+  levelTwoArray.splice(0,1);
+  counter++;
+  $('#points').text('Points: '+counter);
+
+  if(levelTwoArray.length < 5) {
+    console.log('level two complete');
+    $('#levelTwoComplete').modal();
+  }else {
+    reset(levelTwoArray, levelTwoNewArray);
+    play(levelOneArray);
+  }
+});
+// The "Next" button in the "Keep Trying" modal
+$('#keepTryingButtonLevelTwo').click(function(){
+  reset(levelTwoArray, levelTwoNewArray);
+  play(levelOneArray);
+})
+
+$('#startLevelThreeButton').click(function(){
+  reset(levelThreeArray);
+  playLevelTwo(levelThreeArray);
+});
+
+
+
+
+
+
+
 
 // $('button').on('click', function() {
 //     $(this).animate({backgroundColor: 'green'});
@@ -181,7 +243,7 @@ $('#keepTryingButton').click(function(){
 // DONE Function that determines if the correct answer/button is pushed
 
 
-// Function that displays "Correct" popup or "Keep Trying" popup
+// DONE Function that displays "Correct" popup or "Keep Trying" popup
 
 // Function that displays the completed emotion in the "Correct" popup
 
