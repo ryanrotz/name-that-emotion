@@ -81,6 +81,9 @@ div#button1 button, div#button2 button, div#button3 button, div#button4 button {
 
 div#imagebox img {
   margin: 0 auto;
+  max-width: 400px;
+  border-radius: 5%;
+  box-shadow: 0px 10px 14px -7px #276873;
 }
 
 .modal-title {
