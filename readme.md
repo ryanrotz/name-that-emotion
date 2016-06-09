@@ -10,7 +10,8 @@ This game was created to help autistic children recognize emotions so that they 
 
 ### Unsolved Problems
 * Modal button default color does not match other buttons
-* Modal 'x' button hover color should be turned off  
+* Modal 'x' button hover color should be turned off
+* Level Two needs to be created  
 
 ##Installation Instructions
 
